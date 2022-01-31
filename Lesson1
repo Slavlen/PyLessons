@@ -1,0 +1,41 @@
+def pathLength(point_1, point_2):
+	#	 подстановка значений в формулу
+	result = ((point_2[0] - point_1[0]) ** 2 + (point_2[1] - point_1[1]) ** 2) ** 0.5
+	# результат – 3.605551275463989
+	return result
+
+def fac(n):
+    if n == 0:
+        return 1
+    return fac(n-1) * n
+ 
+points = {1: (0, 2), 2: (2, 5), 3: (5, 2), 4: (6, 6), 5: (8, 3)}
+
+pointRange = [
+	[0, pathLength(points[1], points[2]), pathLength(points[1], points[3]), pathLength(points[1], points[4]), pathLength(points[1], points[5])],
+	[pathLength(points[2], points[1]), 0, pathLength(points[2], points[3]), pathLength(points[2], points[4]), pathLength(points[2], points[5])],
+	[pathLength(points[3], points[1]), pathLength(points[3], points[2]), 0, pathLength(points[3], points[4]), pathLength(points[3], points[5])],
+	[pathLength(points[4], points[1]), pathLength(points[4], points[2]), pathLength(points[4], points[3]), 0, pathLength(points[4], points[5])],
+	[pathLength(points[5], points[1]), pathLength(points[5], points[2]), pathLength(points[5], points[3]), pathLength(points[5], points[4]), 0]
+];
+
+
+counter = 0
+path = []
+minPath = []
+minPathDistance = 10000
+minCounter = 0
+
+for i1 in range(1):
+	for i2 in range(5):
+		for i3 in range(5):
+			for i4 in range(5):
+				for i5 in range(5):
+					if (i1 != i2) and (i1 != i3) and (i1 != i4) and (i1 != i5) and (i2 != i3) and (i2 != i4) and (i2 != i5) and (i3 != i4) and (i3 != i5) and (i4 != i5) :
+						path.append([i1 + 1, i2 + 1, i3 + 1, i4 + 1, i5 + 1, i1 + 1])
+						if (pointRange[i1][i2] + pointRange[i2][i3] + pointRange[i3][i4] + pointRange[i4][i5] + pointRange[i5][i1]) < minPathDistance :
+								minPathDistance = pointRange[i1][i2] + pointRange[i2][i3] + pointRange[i3][i4] + pointRange[i4][i5]  + pointRange[i5][i1]
+								minCounter = counter
+								minPath = path[minCounter]
+						counter +=1;
+print(minPath[0], ' -> ', minPath[1], ' -> ', minPath[2], ' -> ', minPath[3], ' -> ', minPath[4], ' -> ', minPath[5], minPathDistance )
