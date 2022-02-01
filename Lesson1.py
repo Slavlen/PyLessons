@@ -9,11 +9,6 @@ def fac(n):
         return 1
     return fac(n-1) * n
 
-def sum_points(point_distance, point_range):
-	return point_distance + point_range
-
-
- 
 points = {1: (0, 2), 2: (2, 5), 3: (5, 2), 4: (6, 6), 5: (8, 3)}
 
 point_range = [
@@ -28,8 +23,10 @@ point_range = [
 counter = 0
 path = []
 min_path = []
+point_distance = []
 min_path_distance = 10000
 min_counter = 0
+
 
 for i1 in range(1):
 	for i2 in range(5):
@@ -42,7 +39,18 @@ for i1 in range(1):
 								min_path_distance = point_range[i1][i2] + point_range[i2][i3] + point_range[i3][i4] + point_range[i4][i5]  + point_range[i5][i1]
 								min_counter = counter
 								min_path = path[min_counter]
+								intermediate_distance = 0
+								point_distance.clear()
+								intermediate_distance += point_range[i1][i2]
+								point_distance.append(intermediate_distance)
+								intermediate_distance += point_range[i2][i3]
+								point_distance.append(intermediate_distance)
+								intermediate_distance += point_range[i3][i4]
+								point_distance.append(intermediate_distance)
+								intermediate_distance += point_range[i4][i5]
+								point_distance.append(intermediate_distance)
+								intermediate_distance += point_range[i5][i1]
+								point_distance.append(intermediate_distance)
 						counter +=1
 
-point_distance = 0
-print(min_path[0], ' -> ', min_path[1],'[',sum_points(point_distance += point_range[min_path[0]][min_path[1]]),']',' -> ', min_path[2], ' -> ', min_path[3], ' -> ', min_path[4], ' -> ', min_path[5], min_path_distance)
+print(min_path[0], ' -> ', min_path[1], '[', point_distance[0], ']', ' -> ', min_path[2], '[', point_distance[1], ']', ' -> ', min_path[3], '[', point_distance[2], ']', ' -> ', min_path[4], '[', point_distance[3], ']', ' -> ', min_path[5], '[' , min_path_distance, ']')
